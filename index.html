@@ -128,17 +128,16 @@ footer{margin-top:auto}
 .rowlabels,.collabels{display:grid;font-family:var(--display);font-size:clamp(9px,1.7vw,13px);color:var(--ink);font-variant-numeric:tabular-nums}
 .rowlabels{grid-template-rows:repeat(16,1fr);align-items:center;justify-items:end;padding-right:6px}
 .collabels{grid-column:2;grid-template-columns:repeat(16,1fr);justify-items:center;align-items:center}
-.board{display:grid;grid-template-columns:repeat(16,1fr);aspect-ratio:1;max-width:100%;border:3px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--ink);gap:1.5px;touch-action:none;user-select:none;-webkit-user-select:none}
-.cell{background:#fff;display:grid;place-items:center;font-weight:800;font-size:clamp(8px,1.5vw,12px);color:#B8B4D8;cursor:crosshair;position:relative;transition:background-color .12s}
+.board{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));grid-template-rows:repeat(16,minmax(0,1fr));aspect-ratio:1;width:100%;max-width:100%;border:3px solid var(--ink);border-radius:6px;overflow:hidden;background:#8F8BC2;gap:1.5px;touch-action:none;user-select:none;-webkit-user-select:none;contain:layout}
+.cell{background:#fff;display:grid;place-items:center;min-width:0;min-height:0;overflow:hidden;line-height:1;font-weight:800;font-size:clamp(8px,1.5vw,12px);color:#B8B4D8;cursor:crosshair;position:relative;transition:background-color .12s}
 .cell:not(.filled){background-image:linear-gradient(135deg,#fff 50%,#F6F4FF 50%)}
 .cell:hover{box-shadow:inset 0 0 0 2.5px var(--grape)}
-.cell.pop{animation:cellpop .28s cubic-bezier(.3,1.8,.5,1)}
-@keyframes cellpop{0%{transform:scale(.5)}100%{transform:scale(1)}}
-.cell.oops{animation:oops .5s ease-in-out 4}
-.cell.oops::after{content:"";position:absolute;inset:2px;border:2.5px dashed var(--pink);border-radius:3px}
-@keyframes oops{50%{transform:scale(.78) rotate(8deg)}}
+.cell.pop{animation:cellpop .35s ease-out}
+@keyframes cellpop{from{box-shadow:inset 0 0 0 40px rgba(255,255,255,.55)}}
+.cell.oops::after{content:"";position:absolute;inset:2px;border:2.5px dashed var(--pink);border-radius:3px;animation:blink .5s steps(2) 4}
+@keyframes blink{50%{opacity:0}}
 .board.win .cell{animation:wave .6s ease-in-out both;animation-delay:calc(var(--d) * 18ms)}
-@keyframes wave{40%{transform:scale(1.25);z-index:2}}
+@keyframes wave{40%{filter:brightness(1.35)}}
 .coords{text-align:center;font-weight:800;color:var(--muted);font-size:15px;min-height:24px;font-variant-numeric:tabular-nums;margin-top:4px}
 .progress{height:14px;border:2.5px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden;margin:8px auto 0;max-width:600px}
 .progress i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--leaf) 0 10px,#5BE39A 10px 20px);transition:width .3s;animation:stripes 1s linear infinite;background-size:28px 28px}
